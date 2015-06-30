@@ -48,7 +48,7 @@ script: |
   # Install PHP extensions
   echo '\n' | sudo pecl install mongo
   echo '\n' | sudo echo "extension=mongo.so" | sudo tee /etc/php5/mods-available/mongo.ini
-  echo '\n' | ln -s /etc/php5/mods-available/mongo.ini /etc/php5/cli/mongo.ini
+  echo '\n' | sudo ln -s /etc/php5/mods-available/mongo.ini /etc/php5/cli/mongo.ini
   ls -l /etc/php5/mods-available
 
   sudo php5enmod mongo
