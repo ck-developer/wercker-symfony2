@@ -1,0 +1,66 @@
+name: symfony2
+version: 0.0.1
+inherits: wercker/ubuntu12.04-webessentials@1.0.4
+type: main
+platform: ubuntu@12.04
+description: "wercker box for symfony2 with mongodb, mysql and nodejs (sass, less, uglifycss, uglifyjs)"
+keywords:
+  - php
+  - php5
+  - symfony2
+  - mongodb
+  - mysql
+  - nodejs
+  - less
+  - uglifycss
+  - uglifyjs
+  - bower
+  - gulp
+  - grunt
+packages:
+  - php@5.4
+  - npm
+  - bower
+  - libicu-dev
+  - php-mysqlnd
+script: |
+  
+  # Edit environment path
+  echo 'export PATH="/usr/local/bin:$PATH"' >> $HOME/.bash_profile
+  # Install php
+  sudo apt-get install php5 php5-common php5-dev php-pear php5-curl php5-gd php5-cli php5-apcu php5-mcrypt php5-intl php5-xdebug libicu-dev php5-redis php5-mysqlnd -y
+  # Configure PHP
+  sudo sed -i 's+;date.timezone =+date.timezone = Europe/Paris +g' /etc/php5/cli/php.ini
+  sudo sed -i  's/128M/8096M/' /etc/php5/cli/php.ini
+  echo 'xdebug.max_nesting_level=250' | sudo tee -a /etc/php5/cli/php.ini
+  # Configure PEAR
+  pear config-set php_ini /etc/php5/cli/php.ini
+  pecl config-set php_ini /etc/php5/cli/php.ini
+  # Install PHP extensions
+  echo '\n' | sudo pecl install mongo
+  # Install composer
+  curl -sS https://getcomposer.org/installer | php
+  sudo mv composer.phar /usr/local/bin/composer
+  sudo chmod +x /usr/local/bin/composer
+  # Install PHPUnit
+  wget https://phar.phpunit.de/phpunit.phar
+  sudo mv phpunit.phar /usr/local/bin/phpunit
+  sudo chmod +x /usr/local/bin/phpunit
+  # Update node
+  echo '\n' | sudo add-apt-repository ppa:chris-lea/node.js
+  sudo apt-get update
+  sudo apt-get install nodejs
+  # Install npm
+  curl -k https://npmjs.org/install.sh | sudo sh
+  # Install bower
+  sudo npm install -g bower
+  # Install Less
+  sudo npm install -g less
+  # Install Uglifyjs
+  sudo npm install -g uglifyjs
+  # Install Uglifycss
+  sudo npm install -g uglifycss
+  # Install Gulp
+  sudo npm install -g gulp
+  # Install Grunt
+  sudo npm install -g grunt

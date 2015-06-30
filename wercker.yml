@@ -1,0 +1,2 @@
+box: wercker/default
+no-response-timeout: 25
