@@ -43,6 +43,8 @@ script: |
   echo 'xdebug.max_nesting_level=250' | sudo tee -a /etc/php5/cli/php.ini
   
   # Configure PEAR
+  ls -l /usr/lib/php5
+  ls -l /usr/lib/php5/20121212/
   pear config-set php_ini /etc/php5/cli/php.ini
   pecl config-set php_ini /etc/php5/cli/php.ini
   # Install PHP extensions
