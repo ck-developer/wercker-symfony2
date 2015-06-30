@@ -46,11 +46,10 @@ script: |
   pear config-set php_ini /etc/php5/cli/php.ini
   pecl config-set php_ini /etc/php5/cli/php.ini
   # Install PHP extensions
-  sudo echo '\n' | sudo pecl install mongo
-  sudo echo '\n' | sudo echo "extension=mongo.so" >> /etc/php5/cli/php.ini
-  sudo ls -l /etc/php5
-  sudo ls -l /etc/php5/cli
-  
+  echo '\n' | sudo pecl install mongo
+  echo '\n' | sudo touch "extension=mongo.so" /etc/php5/mods-available/mongo.ini
+  sudo php5enmod mongo
+
   # Install composer
   curl -sS https://getcomposer.org/installer | php
   sudo mv composer.phar /usr/local/bin/composer
@@ -60,7 +59,10 @@ script: |
   wget https://phar.phpunit.de/phpunit.phar
   sudo mv phpunit.phar /usr/local/bin/phpunit
   sudo chmod +x /usr/local/bin/phpunit
-  
+
+  # Install capifony
+  sudo gem install capifony
+
   # Update node
   sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
   sudo apt-get update
