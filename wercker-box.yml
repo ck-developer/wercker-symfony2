@@ -1,5 +1,5 @@
 name: symfony2
-version: 0.0.6
+version: 0.0.7
 inherits: wercker/ubuntu12.04-webessentials@1.0.4
 type: main
 platform: ubuntu@12.04
@@ -43,16 +43,12 @@ script: |
   echo 'xdebug.max_nesting_level=250' | sudo tee -a /etc/php5/cli/php.ini
   
   # Configure PEAR
-  ls -l /usr/lib/php5
-  ls -l /usr/lib/php5/20121212/
   pear config-set php_ini /etc/php5/cli/php.ini
   pecl config-set php_ini /etc/php5/cli/php.ini
-  # Install PHP extensions
-  echo '\n' | sudo pecl install mongo
-  echo '\n' | sudo echo "extension=mongo.so" | sudo tee -a /etc/php5/mods-available/mongo.ini
-  echo '\n' | sudo ln -s /etc/php5/mods-available/mongo.ini /etc/php5/apache2/conf.d/30-mongo.ini
-  echo '\n' | sudo ln -s /etc/php5/mods-available/mongo.ini /etc/php5/cli/conf.d/30-mongo.ini
 
+  # Install PHP extensions
+  yes '' | sudo pecl install -f apc
+  echo "extension=mongo.so" | tee /etc/php5/mods-available/mongo.ini
   sudo php5enmod mongo
 
   # Install composer
