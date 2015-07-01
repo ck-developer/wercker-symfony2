@@ -49,10 +49,6 @@ script: |
   pecl config-set php_ini /etc/php5/cli/php.ini
   # Install PHP extensions
   echo '\n' | sudo pecl install mongo
-  echo '\n' | sudo echo "extension=mongo.so" | sudo tee -a /etc/php5/mods-available/mongo.ini
-  echo '\n' | sudo ln -s /etc/php5/mods-available/mongo.ini /etc/php5/apache2/conf.d/30-mongo.ini
-  echo '\n' | sudo ln -s /etc/php5/mods-available/mongo.ini /etc/php5/cli/conf.d/30-mongo.ini
-
   sudo php5enmod mongo
 
   # Install composer
