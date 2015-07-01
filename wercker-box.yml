@@ -45,10 +45,10 @@ script: |
   # Configure PEAR
   pear config-set php_ini /etc/php5/cli/php.ini
   pecl config-set php_ini /etc/php5/cli/php.ini
-  
+
   # Install PHP extensions
-  yes '' | sudo pecl install -f apc
-  echo "extension=mongo.so" | tee /etc/php5/mods-available/mongo.ini
+  yes '' | sudo pecl install -f mongo
+  echo "extension=mongo.so" | sudo tee /etc/php5/mods-available/mongo.ini
   sudo php5enmod mongo
 
   # Install composer
